@@ -2,8 +2,8 @@
 
 {
     class Panel {
-        constructor(){
-            const section  = document.createElement('section');
+        constructor (){
+            const section = document.createElement('section');
             section.classList.add('panel');
 
             this.img = document.createElement('img');
@@ -23,7 +23,6 @@
 
                 panelsLeft--;
 
-                //ここで結果判定
                 if(panelsLeft === 0){
                     checkResult();
                     spin.classList.remove('inactive');
@@ -44,20 +43,20 @@
                 'img/apple.png',
                 'img/cherry.png',
             ];
-            return images[Math.floor(Math.random()* images.length)];
+            return images[Math.floor(Math.random() * images.length)];
         }
 
         spin(){
             this.img.src = this.getRandomImage();
-            this.timeoutId =  setTimeout(() => {
+            this.timeoutId = setTimeout(() => {
                 this.spin();
             },50);
         }
 
-        isUnmatched(p1 ,p2 ){
+        isUnmatched(p1, p2){
             // if(this.img.src !== p1.img.src && this.img.src !== p2.img.src){
             //     return true;
-            // } else {
+            // }else{
             //     return false;
             // }
             return this.img.src !== p1.img.src && this.img.src !== p2.img.src;
@@ -74,13 +73,13 @@
     }
 
     function checkResult(){
-        if(panel[0].isUnmatched(panels[1], panels[2])){
+        if(panels[0].isUnmatched(panels[1],panels[2])){
             panels[0].unmatch();
         }
-        if(panel[1].isUnmatched(panels[0], panels[2])){
+        if(panels[1].isUnmatched(panels[0],panels[2])){
             panels[1].unmatch();
         }
-        if(panel[2].isUnmatched(panel[0].panels[1])){
+        if(panels[2].isUnmatched(panels[0],panels[1])){
             panels[2].unmatch();
         }
     }
@@ -89,19 +88,19 @@
         new Panel(),
         new Panel(),
         new Panel(),
-    ]
+    ];
 
     let panelsLeft = 3;
 
     const spin = document.getElementById('spin');
-    spin.addEventListener('click', ()=> {
+    spin.addEventListener('click', () => {
         if(spin.classList.contains('inactive')){
             return;
         }
         spin.classList.add('inactive');
 
-        panels.forEach( panel =>{
-            panels.activate();
+        panels.forEach(panel => {
+            panel.activate();
             panel.spin();
         });
     });
